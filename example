@@ -1,0 +1,37 @@
+# watcher-elastic
+
+curl -XPUT 'http://192.168.100.35:9200/_watcher/watch/log_error_petruk' -d '{
+  "trigger" : {
+    "schedule" : { "interval" : "30s" } 
+  },
+  "input" : {
+    "search" : {
+      "request" : {
+        "indices" : [ "logs" ],
+        "body" : {
+          "query": {
+            "query_string": {
+              "query":"_type: premium_celery_beat",
+              "analyze_wildcard": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "actions": {
+    "send_trigger": {
+        "webhook": {
+            "method": "POST",
+            "scheme": "https",
+            "port": 443,
+            "host": "hooks.slack.com",
+            "path": "/services/T03QXGD8D/B0U7YCA02/Tevq4Qzrk6qyPQxluYZMwic4",
+            "body": "{ \"text\": \"encountered {{ctx.payload.hits.total}} errors in past 30 second \"}",
+            "headers": {
+                "Content-type": "application/json"
+            }
+        }
+    }
+  }
+}'
