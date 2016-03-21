@@ -26,7 +26,7 @@ curl -XPUT 'http://192.168.100.35:9200/_watcher/watch/log_error_petruk' -d '{
             "scheme": "https",
             "port": 443,
             "host": "hooks.slack.com",
-            "path": "/services/T03QXGD8D/B0U7YCA02/Tevq4Qzrk6qyPQxluYZMwic4",
+            "path": "/services/XXXXXX/XXXXXX/XXXXXXXXXXXXX",
             "body": "{ \"text\": \"encountered {{ctx.payload.hits.total}} errors in past 30 second \"}",
             "headers": {
                 "Content-type": "application/json"
